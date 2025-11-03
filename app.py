@@ -1,7 +1,5 @@
 from flask import Flask,request,render_template
 import numpy as np
-import pandas  # noqa: F401 (kept for compatibility if used elsewhere)
-import sklearn  # noqa: F401 (ensures sklearn is available for the unpickled model)
 import pickle
 
 # Load only the RandomForest model; no scalers are used.
@@ -30,9 +28,7 @@ def _patch_sklearn_model(m):
 
 model = _patch_sklearn_model(model)
 
-# creating flask app
-# Configure Flask to look for templates and static files in the project root,
-# since `index.html` and `img.jpg` are located here (not in templates/static folders).
+# Create Flask app; serve templates and static files from project root
 app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
 
 @app.route('/')
